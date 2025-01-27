@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour
             hit.point += Vector3.up;
             existingPortals[portalIndex] = Instantiate(portalPrefabs[portalIndex], hit.point, transform.rotation);
 
-            Debug.Log(hit.point);
+            Debug.Log("Placed " + portalPrefabs[portalIndex].name + " at: " + hit.point);
 
         }
     }
