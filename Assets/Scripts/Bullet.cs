@@ -2,21 +2,25 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private BulletManager manager;
+    private BulletManager bulletManager;
+    [SerializeField] private float bulletSpeed;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        manager = GameObject.Find("BulletManager").GetComponent<BulletManager>();
+        bulletManager = GameObject.Find("BulletManager").GetComponent<BulletManager>();
     }
-
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
+        GetComponent<Rigidbody>().linearVelocity = Vector3.forward * bulletSpeed;
+    }
+    private void OnDisable()
+    {
+        GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        
+        bulletManager.SendBullet(gameObject);
     }
 }
