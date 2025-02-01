@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class EnemyController : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class EnemyController : MonoBehaviour
     }
 
     /// <summary>
-    ///     Gets bullet from pool and shoots
+    ///     Gets bullet from pool and shoots towards transform.forward with bulletSpeed variable
     /// </summary>
     void Shoot()
     {
@@ -53,6 +54,7 @@ public class EnemyController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawRay(shootPosition.position, -transform.forward * 0.5f);
+        Gizmos.DrawRay(shootPosition.position, transform.forward * 1f);
+        //draws ray in shoot direction for visible sightline
     }
 }
