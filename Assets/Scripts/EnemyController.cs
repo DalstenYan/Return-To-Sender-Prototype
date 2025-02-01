@@ -1,9 +1,11 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class EnemyController : MonoBehaviour
 {
     private BulletManager bulletManager;
+    [SerializeField] private float bulletSpeed;
     [SerializeField] private Transform shootPosition;
 
     void Start()
@@ -18,15 +20,14 @@ public class EnemyController : MonoBehaviour
     }
 
     /// <summary>
-    ///     Gets bullet from pool and shoots
+    ///     Gets bullet from pool and shoots towards transform.forward with bulletSpeed variable
     /// </summary>
     void Shoot()
     {
         GameObject bullet = bulletManager.GetBullet();
         bullet.transform.position = shootPosition.position;
         bullet.transform.rotation = transform.rotation;
-        bullet.SetActive(true);
-        bullet.GetComponent<Rigidbody>().linearVelocity = Vector3.right * 5;
+        bullet.GetComponent<Rigidbody>().linearVelocity = transform.forward * bulletSpeed;
     }
 
     public IEnumerator ShootLoop()
@@ -41,7 +42,7 @@ public class EnemyController : MonoBehaviour
         transform.position = location;
         gameObject.SetActive(true);
     }
-
+    
     [ContextMenu("Simulate Death")]
     void EnemyDeath() 
     {
@@ -49,5 +50,11 @@ public class EnemyController : MonoBehaviour
         Debug.Log(EnemyManager.instance);
         EnemyManager.instance.EnqueueEnemy("basicEnemy", this);
 
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawRay(shootPosition.position, transform.forward * 1f);
+        //draws ray in shoot direction for visible sightline
     }
 }
