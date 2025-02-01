@@ -762,6 +762,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473115e364bd8514daefb2c8aa885ba1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletSpeed: 5
   shootPosition: {fileID: 1879423112}
 --- !u!1 &1879423111
 GameObject:

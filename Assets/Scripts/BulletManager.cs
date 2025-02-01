@@ -16,17 +16,18 @@ public class BulletManager : MonoBehaviour
     /// <returns> Bullet from pool </returns>
     public GameObject GetBullet()
     {
+        GameObject newBullet;
         if (bulletPool.Count == 0)
         {
-            GameObject newBullet = Instantiate(bullet);
-            return newBullet;
+            newBullet = Instantiate(bullet);
         }
         else
         {
-            GameObject newBullet = (GameObject)bulletPool.Pop();
-            newBullet.transform.parent = null;
-            return newBullet;
+            newBullet = (GameObject)bulletPool.Pop();
         }
+        newBullet.transform.parent = transform.GetChild(0);
+        newBullet.SetActive(true);
+        return newBullet;
     }
 
     /// <summary>
@@ -36,7 +37,7 @@ public class BulletManager : MonoBehaviour
     public void SendBullet(GameObject b)
     {
         b.SetActive(false);
-        b.transform.SetParent(transform);
+        b.transform.SetParent(transform.GetChild(1));
         bulletPool.Push(b);
     }
 }
