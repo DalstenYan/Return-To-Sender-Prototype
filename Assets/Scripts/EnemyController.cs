@@ -8,9 +8,7 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
-        bulletManager = GameObject.Find("BulletManager").GetComponent<BulletManager>();
-
-        StartCoroutine(ShootLoop());
+        Activation();
     }
 
     /// <summary>
@@ -30,5 +28,22 @@ public class EnemyController : MonoBehaviour
         Shoot();
         yield return new WaitForSeconds(0.5f);
         StartCoroutine(ShootLoop());
+    }
+
+    public void Activation() 
+    {
+        gameObject.SetActive(true);
+        bulletManager = GameObject.Find("BulletManager").GetComponent<BulletManager>();
+
+        StartCoroutine(ShootLoop());
+    }
+
+    [ContextMenu("Simulate Death")]
+    void EnemyDeath() 
+    {
+        StopAllCoroutines();
+        Debug.Log(EnemyManager.instance);
+        EnemyManager.instance.EnqueueEnemy("basicEnemy", this);
+
     }
 }
