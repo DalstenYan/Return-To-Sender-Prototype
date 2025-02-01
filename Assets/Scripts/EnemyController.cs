@@ -8,7 +8,13 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
-        Activation();
+        Activation(transform.position);
+    }
+
+    private void OnEnable()
+    {
+        bulletManager = GameObject.Find("BulletManager").GetComponent<BulletManager>();
+        StartCoroutine(ShootLoop());
     }
 
     /// <summary>
@@ -30,12 +36,10 @@ public class EnemyController : MonoBehaviour
         StartCoroutine(ShootLoop());
     }
 
-    public void Activation() 
+    public void Activation(Vector3 location) 
     {
+        transform.position = location;
         gameObject.SetActive(true);
-        bulletManager = GameObject.Find("BulletManager").GetComponent<BulletManager>();
-
-        StartCoroutine(ShootLoop());
     }
 
     [ContextMenu("Simulate Death")]

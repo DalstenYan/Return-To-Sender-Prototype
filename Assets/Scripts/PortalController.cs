@@ -5,6 +5,9 @@ public class PortalController : MonoBehaviour
     [SerializeField]
     GameObject player;
 
+    [SerializeField]
+    GameObject _storedProjectile;
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -12,15 +15,22 @@ public class PortalController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.name);
         if(CompareTag("PortalB"))
             return;
-        Transform otherPortalTransform = GameObject.FindGameObjectWithTag("PortalB").transform;
-        other.gameObject.transform.position = otherPortalTransform.position;
-    }
+        Debug.Log("Entered " + gameObject.name + ":" + other.gameObject.name);
 
-    private void Update()
-    {
-        //player.transform.position = new Vector3(2, 2, 2);
+        GameObject otherPortal = GameObject.FindGameObjectWithTag("PortalB");
+
+        if (otherPortal == null) 
+        {
+            if (other.gameObject.CompareTag("Bullet")) 
+            {
+                _storedProjectile = other.gameObject;
+            }
+            return;
+        }
+
+        //Transform otherPortalTransform = .transform;
+        other.gameObject.transform.position = otherPortal.transform.position;
     }
 }
