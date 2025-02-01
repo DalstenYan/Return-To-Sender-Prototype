@@ -19,16 +19,16 @@ public class EnemyManager : MonoBehaviour
     {
         enemyObjectPools = new Dictionary<string, Queue<EnemyController>>();
         instance = this;
+        foreach (GameObject obj in enemyPrefabTypes) 
+        {
+            enemyObjectPools.Add(obj.name, new Queue<EnemyController>());
+        }
     }
 
     public void EnqueueEnemy(string enemyType, EnemyController enemy) 
     {
         enemy.gameObject.SetActive(false);
         enemy.transform.SetParent(transform);
-        if (!enemyObjectPools.TryGetValue(enemyType, out Queue<EnemyController> enemyPool))
-        {
-            enemyObjectPools.Add(enemyType, new Queue<EnemyController>());
-        }
         enemyObjectPools[enemyType].Enqueue(enemy);
         Debug.Log("Added: " + enemy + ", pool is now " + enemyObjectPools[enemyType]);
     }
@@ -54,11 +54,12 @@ public class EnemyManager : MonoBehaviour
         return EnqueueNewEnemy(enemyType);
     }
 
+
     [ContextMenu("Activate Enemy Again")]
     public void ReactivateEnemy() 
     {
         var enemy = DequeueEnemy("basicEnemy");
-        enemy.Activation();
+        enemy.Activation(Vector3.zero);
 
     }
 }
