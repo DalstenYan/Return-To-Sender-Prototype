@@ -6,6 +6,9 @@ public class Bullet : MonoBehaviour
     [SerializeField] private bool hitAllies = false;
     [SerializeField] private float bulletSpeed;
 
+    [SerializeField]
+    private Material regularBulletMaterial, allyHitBulletMaterial;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -20,19 +23,27 @@ public class Bullet : MonoBehaviour
         GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        GameObject hitObject = collision.gameObject;
+        GameObject hitObject = other.gameObject;
 
-        if (hitObject.CompareTag("Enemy") && hitAllies) 
+        //When it hits an enemy, and it can hit allies
+        if (hitObject.CompareTag("Enemy") && hitAllies)
         {
             hitObject.GetComponent<EnemyController>().EnemyDeath();
         }
+        else if(!hitObject.CompareTag("Walls"))
+        {
+            return;
+        }
+
         bulletManager.SendBullet(gameObject);
     }
 
-    public void FlipHitTarget() 
+
+    public void SetHitAllies(bool canHitAllies) 
     {
-        hitAllies = !hitAllies;
+        GetComponent<MeshRenderer>().material = canHitAllies ? allyHitBulletMaterial : regularBulletMaterial;
+        hitAllies = canHitAllies;
     }
 }

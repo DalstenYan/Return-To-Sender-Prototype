@@ -39,7 +39,7 @@ public class PortalController : MonoBehaviour
         {
             //Get the bullet, and enable it to hit enemies
             Bullet bullet = other.gameObject.GetComponent<Bullet>();
-            bullet.FlipHitTarget();
+            bullet.SetHitAllies(true);
 
             //If the other portal is inactive, store the bullet if there is none, don't teleport
             if (otherPortal == null && !player.HasStoredBullet())
