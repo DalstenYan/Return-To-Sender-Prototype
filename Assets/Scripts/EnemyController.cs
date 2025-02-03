@@ -8,12 +8,13 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float bulletSpeed;
     [SerializeField] private Transform shootPosition;
 
+
     void Start()
     {
         Activation(transform.position);
     }
 
-    private void OnEnable()
+    void OnEnable()
     {
         bulletManager = GameObject.Find("BulletManager").GetComponent<BulletManager>();
         StartCoroutine(ShootLoop());
@@ -30,7 +31,7 @@ public class EnemyController : MonoBehaviour
         bullet.GetComponent<Rigidbody>().linearVelocity = transform.forward * bulletSpeed;
     }
 
-    public IEnumerator ShootLoop()
+    IEnumerator ShootLoop()
     {
         Shoot();
         yield return new WaitForSeconds(0.5f);
@@ -42,9 +43,10 @@ public class EnemyController : MonoBehaviour
         transform.position = location;
         gameObject.SetActive(true);
     }
+
     
     [ContextMenu("Simulate Death")]
-    void EnemyDeath() 
+    public void EnemyDeath() 
     {
         StopAllCoroutines();
         Debug.Log(EnemyManager.instance);

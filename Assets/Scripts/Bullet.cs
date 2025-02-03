@@ -3,6 +3,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private BulletManager bulletManager;
+    [SerializeField] private bool hitAllies = false;
     [SerializeField] private float bulletSpeed;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -21,7 +22,17 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(!collision.gameObject.CompareTag("Enemy"))
-            bulletManager.SendBullet(gameObject);
+        GameObject hitObject = collision.gameObject;
+
+        if (hitObject.CompareTag("Enemy") && hitAllies) 
+        {
+            hitObject.GetComponent<EnemyController>().EnemyDeath();
+        }
+        bulletManager.SendBullet(gameObject);
+    }
+
+    public void FlipHitTarget() 
+    {
+        hitAllies = !hitAllies;
     }
 }
