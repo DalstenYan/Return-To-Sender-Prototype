@@ -42,67 +42,63 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        movement.action.Enable();
-        jump.action.Enable();
+        //movement.action.Enable();
+        //jump.action.Enable();
     }
 
     private void OnDisable()
     {
-        movement.action.Disable();
-        jump.action.Disable();
+        //movement.action.Disable();
+        //jump.action.Disable();
     }
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        controller = gameObject.GetComponent<CharacterController>();
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+        //controller = gameObject.GetComponent<CharacterController>();
         existingPortals = new GameObject[portalPrefabs.Length];
     }
 
-    void Update()
+    //void Update()
+    //{
+    //    groundedPlayer = controller.isGrounded;
+    //    if (groundedPlayer && playerVelocity.y < 0)
+    //    {
+    //        playerVelocity.y = 0f;
+    //    }
+
+    //    Vector2 keyInputs = movement.action.ReadValue<Vector2>();
+    //    Vector3 move = new(keyInputs.x, 0f, keyInputs.y);
+    //    move = cameraMain.transform.forward * move.z + cameraMain.transform.right * move.x;
+    //    move.y = 0f;
+    //    controller.Move(playerSpeed * Time.deltaTime * move);
+
+    //    // Makes the player jump
+    //    if (jump.action.IsInProgress() && groundedPlayer)
+    //    {
+    //        playerVelocity.y += Mathf.Sqrt(jumpHeight * -2.0f * gravityValue);
+    //    }
+
+    //    playerVelocity.y += gravityValue * Time.deltaTime;
+    //    controller.Move(playerVelocity * Time.deltaTime);
+
+    //    if (keyInputs != Vector2.zero) 
+    //    {
+    //        float targetAngle = Mathf.Atan2(keyInputs.x, keyInputs.y) * Mathf.Rad2Deg + cameraMain.eulerAngles.y;
+    //        Quaternion rotation = Quaternion.Euler(0f, targetAngle, 0f);
+    //        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
+    //    }
+    //}
+
+    public void OnPortal1() 
     {
-        groundedPlayer = controller.isGrounded;
-        if (groundedPlayer && playerVelocity.y < 0)
-        {
-            playerVelocity.y = 0f;
-        }
-
-        Vector2 keyInputs = movement.action.ReadValue<Vector2>();
-        Vector3 move = new(keyInputs.x, 0f, keyInputs.y);
-        move = cameraMain.transform.forward * move.z + cameraMain.transform.right * move.x;
-        move.y = 0f;
-        controller.Move(playerSpeed * Time.deltaTime * move);
-
-        // Makes the player jump
-        if (jump.action.IsInProgress() && groundedPlayer)
-        {
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -2.0f * gravityValue);
-        }
-
-        playerVelocity.y += gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
-
-        if (keyInputs != Vector2.zero) 
-        {
-            float targetAngle = Mathf.Atan2(keyInputs.x, keyInputs.y) * Mathf.Rad2Deg + cameraMain.eulerAngles.y;
-            Quaternion rotation = Quaternion.Euler(0f, targetAngle, 0f);
-            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
-        }
-    }
-
-    public void PlacePortalOne(InputAction.CallbackContext context) 
-    {
-        if (!context.performed)
-            return;
         PlacePortalDown(0);
         
     }
 
-    public void PlacePortalTwo(InputAction.CallbackContext context)
+    public void OnPortal2()
     {
-        if (!context.performed)
-            return;
         PlacePortalDown(1);
 
     }
@@ -113,7 +109,7 @@ public class PlayerController : MonoBehaviour
     /// <param name="portalIndex"></param>
     private void PlacePortalDown(int portalIndex) 
     {
-        Ray ray = Camera.main.ScreenPointToRay(look.action.ReadValue<Vector2>());
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, distance, groundLayerMask))
         {
             PortalControl(portalIndex);
