@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2784280865463263878}
   m_Layer: 0
   m_Name: basicEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,4 +99,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473115e364bd8514daefb2c8aa885ba1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletSpeed: 5
   shootPosition: {fileID: 1177529576786120102}
