@@ -21,6 +21,7 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        bulletManager.SendBullet(gameObject);
+        if(!collision.gameObject.CompareTag("Enemy"))
+            bulletManager.SendBullet(gameObject);
     }
 }
