@@ -33,8 +33,8 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator ShootLoop()
     {
-        Shoot();
         yield return new WaitForSeconds(0.5f);
+        Shoot();
         StartCoroutine(ShootLoop());
     }
 
