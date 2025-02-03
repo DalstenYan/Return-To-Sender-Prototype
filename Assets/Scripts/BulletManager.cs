@@ -36,6 +36,7 @@ public class BulletManager : MonoBehaviour
     /// <param name="b"> bullet to be pooled </param>
     public void SendBullet(GameObject b)
     {
+        b.GetComponent<Bullet>().SetHitAllies(false);
         b.SetActive(false);
         b.transform.SetParent(transform.GetChild(1));
         bulletPool.Push(b);
