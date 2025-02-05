@@ -3,7 +3,11 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private BulletManager bulletManager;
+    [SerializeField] private bool hitAllies = false;
     [SerializeField] private float bulletSpeed;
+
+    [SerializeField]
+    private Material regularBulletMaterial, allyHitBulletMaterial;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,9 +23,27 @@ public class Bullet : MonoBehaviour
         GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if(!collision.gameObject.CompareTag("Enemy"))
-            bulletManager.SendBullet(gameObject);
+        GameObject hitObject = other.gameObject;
+
+        //When it hits an enemy, and it can hit allies
+        if (hitObject.CompareTag("Enemy") && hitAllies)
+        {
+            hitObject.GetComponent<EnemyController>().EnemyDeath();
+        }
+        else if(!hitObject.CompareTag("Walls"))
+        {
+            return;
+        }
+
+        bulletManager.SendBullet(gameObject);
+    }
+
+
+    public void SetHitAllies(bool canHitAllies) 
+    {
+        GetComponent<MeshRenderer>().material = canHitAllies ? allyHitBulletMaterial : regularBulletMaterial;
+        hitAllies = canHitAllies;
     }
 }

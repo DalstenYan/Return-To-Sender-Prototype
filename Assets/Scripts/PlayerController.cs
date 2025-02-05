@@ -33,6 +33,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private LayerMask groundLayerMask;
 
+    [SerializeField]
+    private Bullet _storedPortalBullet;
+
     private CharacterController controller;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
@@ -133,4 +136,21 @@ public class PlayerController : MonoBehaviour
         Destroy(existingPortals[portalIndex]);
     }
 
+    public void SetStoredBullet(Bullet bullet) 
+    {
+        if(bullet != null)
+            bullet.gameObject.SetActive(false);
+        _storedPortalBullet = bullet;
+    }
+
+    public bool HasStoredBullet() 
+    {
+        return _storedPortalBullet != null;
+    }
+
+    public Bullet GetStoredBullet() 
+    {
+        _storedPortalBullet.gameObject.SetActive(true);
+        return _storedPortalBullet;
+    }
 }

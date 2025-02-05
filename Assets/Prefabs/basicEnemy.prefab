@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7766546558768874765}
   - component: {fileID: 1578676727398620792}
   - component: {fileID: 2784280865463263878}
+  - component: {fileID: -1834816048223549836}
   m_Layer: 0
   m_Name: basicEnemy
   m_TagString: Enemy
@@ -101,3 +102,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletSpeed: 5
   shootPosition: {fileID: 1177529576786120102}
+--- !u!135 &-1834816048223549836
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8113926779688662576}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

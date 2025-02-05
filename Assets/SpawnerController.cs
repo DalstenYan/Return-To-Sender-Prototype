@@ -28,8 +28,8 @@ public class SpawnerController : MonoBehaviour
     IEnumerator SpawnAnEnemy() 
     {
         yield return new WaitForSeconds(_spawnInterval);
-        var enemy = EnemyManager.instance.DequeueEnemy(GetEnemyNameToSpawn());
         Transform spawnLocation = _spawnLocations[Random.Range(0, _spawnLocations.Count)];
+        var enemy = EnemyManager.instance.DequeueEnemy(GetEnemyNameToSpawn());
         enemy.Activation(spawnLocation.position);
 
         StartCoroutine(SpawnAnEnemy());
