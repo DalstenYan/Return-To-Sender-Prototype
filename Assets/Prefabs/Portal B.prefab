@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: PortalB
       objectReference: {fileID: 0}
+    - target: {fileID: 2607579140432219019, guid: da406edf5eefb5f448858f488d2f8780, type: 3}
+      propertyPath: m_TargetTexture
+      value: 
+      objectReference: {fileID: 8400000, guid: 294aa09cbba788a49938e4f135f47a3f, type: 2}
     - target: {fileID: 3852954813565363001, guid: da406edf5eefb5f448858f488d2f8780, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.1625524
@@ -59,7 +63,7 @@ PrefabInstance:
     - target: {fileID: 8444062785062456298, guid: da406edf5eefb5f448858f488d2f8780, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 0b36f4d45a0022e429be9ec81ae82263, type: 2}
+      objectReference: {fileID: 2100000, guid: b2dbc52fc2572e64c80af9fc90885ca4, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
