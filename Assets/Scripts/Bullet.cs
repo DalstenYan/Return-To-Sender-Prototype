@@ -1,13 +1,17 @@
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : MonoBehaviour, IPortalTravel
 {
     private BulletManager bulletManager;
     [SerializeField] private bool hitAllies = false;
     [SerializeField] private float bulletSpeed;
+    [SerializeField] private bool inTransport = false;
+    [SerializeField] private string sentPortal;
 
     [SerializeField]
     private Material regularBulletMaterial, allyHitBulletMaterial;
+
+    public bool IsTraveling { get; set; }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -41,8 +45,9 @@ public class Bullet : MonoBehaviour
     }
 
 
-    public void SetHitAllies(bool canHitAllies) 
+    public void SetHitAllies(bool canHitAllies, string portal = "") 
     {
+        sentPortal = portal;
         GetComponent<MeshRenderer>().material = canHitAllies ? allyHitBulletMaterial : regularBulletMaterial;
         hitAllies = canHitAllies;
     }

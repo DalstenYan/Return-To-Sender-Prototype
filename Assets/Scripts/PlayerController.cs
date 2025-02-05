@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IPortalTravel
 {
 
     [SerializeField]
@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private Bullet _storedPortalBullet;
+
+    public bool IsTraveling { get; set; }
 
     private void Start()
     {
