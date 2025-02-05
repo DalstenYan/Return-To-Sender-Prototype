@@ -8,10 +8,15 @@ using UnityEngine.InputSystem;
 public class FPSController : MonoBehaviour
 {
     [SerializeField] private Camera _playerCamera;
+
+    [Header ("Movement Variables")]
     [SerializeField] private float _walkSpeed = 6f;
     [SerializeField] private float _jumpPower = 7f;
     [SerializeField] private float _gravity = 10f;
 
+    [Space(8)]
+
+    [Header ("Look Variables")]
     [SerializeField] private float _lookSpeed = 2f;
     [SerializeField] private float _lookXLimit = 45f;
 
