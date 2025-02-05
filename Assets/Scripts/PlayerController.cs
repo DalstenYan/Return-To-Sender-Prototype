@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IPortalTravel
 {
     [SerializeField]
     private Transform cameraMain;
@@ -39,6 +39,8 @@ public class PlayerController : MonoBehaviour
     private CharacterController controller;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
+
+    public bool IsTraveling { get; set; }
 
     private void OnEnable()
     {
