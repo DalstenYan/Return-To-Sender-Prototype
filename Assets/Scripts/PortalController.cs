@@ -21,11 +21,17 @@ public class PortalController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(CompareTag("PortalB"))
-            return;
         Debug.Log("Entered " + gameObject.name + ":" + other.gameObject.name);
 
-        GameObject otherPortal = GameObject.FindGameObjectWithTag("PortalB");
+        GameObject otherPortal = null;
+
+        otherPortal = CompareTag("PortalB") ? GameObject.FindGameObjectWithTag("PortalA") : GameObject.FindGameObjectWithTag("PortalB");
+
+        
+        if (other.gameObject.TryGetComponent<IPortalTravel>(out var traveller) && traveller.IsTraveling) 
+        {
+            return;
+        }
 
         //When the collision is not a bullet, and the other portal is inactive
         if (!other.gameObject.CompareTag("Bullet") && otherPortal == null)
@@ -37,8 +43,10 @@ public class PortalController : MonoBehaviour
         //When the collision is a bullet
         if (other.gameObject.CompareTag("Bullet")) 
         {
+
             //Get the bullet, and enable it to hit enemies
             Bullet bullet = other.gameObject.GetComponent<Bullet>();
+
             bullet.SetHitAllies(true);
 
             //If the other portal is inactive, store the bullet if there is none, don't teleport
@@ -54,5 +62,14 @@ public class PortalController : MonoBehaviour
         
         other.gameObject.transform.position = otherPortal.transform.position;
     }
-    
+
+    private void OnTriggerExit(Collider other)
+    {
+        Debug.Log("Exited " + name + ": " + other.gameObject);
+        if (other.gameObject.TryGetComponent<IPortalTravel>(out var traveller))
+        {
+            traveller.FlipTraveling();
+        }
+    }
+
 }
