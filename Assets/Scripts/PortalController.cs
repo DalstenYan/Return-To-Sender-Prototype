@@ -15,6 +15,7 @@ public class PortalController : MonoBehaviour
         if (CompareTag("PortalB") && player.HasStoredBullet())
         {
             player.GetStoredBullet().transform.position = transform.position;
+            player.GetStoredBullet().transform.rotation = transform.rotation;
             player.SetStoredBullet(null);
         }
     }
@@ -61,6 +62,7 @@ public class PortalController : MonoBehaviour
             return;
         
         other.gameObject.transform.position = otherPortal.transform.position;
+        other.gameObject.transform.rotation = otherPortal.transform.rotation;  
     }
 
     private void OnTriggerExit(Collider other)

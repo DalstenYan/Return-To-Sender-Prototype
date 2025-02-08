@@ -20,11 +20,19 @@ public class Bullet : MonoBehaviour, IPortalTravel
     }
     private void OnEnable()
     {
-        GetComponent<Rigidbody>().linearVelocity = Vector3.forward * bulletSpeed;
+        GetComponent<Rigidbody>().linearVelocity = transform.forward * bulletSpeed;
     }
     private void OnDisable()
     {
         GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
+    }
+
+    private void Update()
+    {
+        if (enabled)
+        {
+            GetComponent<Rigidbody>().linearVelocity = transform.forward * bulletSpeed;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -50,5 +58,10 @@ public class Bullet : MonoBehaviour, IPortalTravel
         sentPortal = portal;
         GetComponent<MeshRenderer>().material = canHitAllies ? allyHitBulletMaterial : regularBulletMaterial;
         hitAllies = canHitAllies;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawRay(transform.position, transform.forward * 1f);
     }
 }
