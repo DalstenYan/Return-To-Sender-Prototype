@@ -1,3 +1,5 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour, IPortalTravel
@@ -13,6 +15,8 @@ public class Bullet : MonoBehaviour, IPortalTravel
 
     public bool IsTraveling { get; set; }
 
+    [SerializeField] private float timeBeforeDespawn = 6.0f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -21,10 +25,14 @@ public class Bullet : MonoBehaviour, IPortalTravel
     private void OnEnable()
     {
         GetComponent<Rigidbody>().linearVelocity = transform.forward * bulletSpeed;
+
+        StartCoroutine(DespawnTimer());
     }
     private void OnDisable()
     {
         GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
+
+        StopCoroutine(DespawnTimer());
     }
 
     private void Update()
@@ -63,5 +71,11 @@ public class Bullet : MonoBehaviour, IPortalTravel
     private void OnDrawGizmos()
     {
         Gizmos.DrawRay(transform.position, transform.forward * 1f);
+    }
+
+    public IEnumerator DespawnTimer()
+    {
+        yield return new WaitForSeconds(timeBeforeDespawn);
+        bulletManager.SendBullet(gameObject);
     }
 }
