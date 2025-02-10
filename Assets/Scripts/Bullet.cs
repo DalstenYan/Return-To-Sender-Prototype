@@ -32,7 +32,7 @@ public class Bullet : MonoBehaviour, IPortalTravel
     {
         GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
 
-        StopCoroutine(DespawnTimer());
+        StopCoroutine(DespawnTimer());  
     }
 
     private void Update()
