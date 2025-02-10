@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour, IPortalTravel
@@ -84,5 +85,13 @@ public class PlayerController : MonoBehaviour, IPortalTravel
     {
         _storedPortalBullet.gameObject.SetActive(true);
         return _storedPortalBullet;
+    }
+
+    void OnExit()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        SceneManager.LoadScene(0);
+
     }
 }

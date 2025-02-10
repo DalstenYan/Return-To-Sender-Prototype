@@ -32,7 +32,7 @@ public class FPSController : MonoBehaviour
     /// <summary>
     ///     Basic setup for scene
     /// </summary>
-    void Start()
+    private void OnEnable()
     {
         characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
