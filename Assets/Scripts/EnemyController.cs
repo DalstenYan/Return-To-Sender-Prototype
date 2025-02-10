@@ -11,7 +11,7 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
-        Activation(transform.position);
+        Activation(transform);
     }
 
     void OnEnable()
@@ -38,9 +38,10 @@ public class EnemyController : MonoBehaviour
         StartCoroutine(ShootLoop());
     }
 
-    public void Activation(Vector3 location) 
+    public void Activation(Transform location) 
     {
-        transform.position = location;
+        transform.position = location.position;
+        transform.parent = location;
         gameObject.SetActive(true);
     }
 
