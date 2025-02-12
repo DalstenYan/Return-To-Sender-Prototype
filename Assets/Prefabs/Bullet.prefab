@@ -124,8 +124,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitAllies: 0
   bulletSpeed: 5
+  inTransport: 0
+  sentPortal: 
   regularBulletMaterial: {fileID: 2100000, guid: 3a601bdac15ec884e814eb5a46270f56, type: 2}
   allyHitBulletMaterial: {fileID: 2100000, guid: 06dc0721f65a5f24d990ab3260d509cb, type: 2}
+  timeBeforeDespawn: 15
 --- !u!54 &1141031281829288549
 Rigidbody:
   m_ObjectHideFlags: 0
