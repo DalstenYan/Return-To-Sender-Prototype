@@ -61,8 +61,13 @@ public class PortalController : MonoBehaviour
         if (otherPortal == null)
             return;
         
+        // Old rotation, faces the bullets in the same direction as the new portal
         other.gameObject.transform.position = otherPortal.transform.position;
-        other.gameObject.transform.rotation = otherPortal.transform.rotation;  
+        //other.gameObject.transform.rotation = otherPortal.transform.rotation;  
+
+        // New rotation, rotates the bullets based on the angle between the two portals
+        Quaternion angle = Quaternion.FromToRotation(this.transform.forward, otherPortal.transform.forward);
+        other.gameObject.transform.Rotate(angle.eulerAngles);
     }
 
     private void OnTriggerExit(Collider other)

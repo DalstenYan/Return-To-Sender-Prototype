@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 8444062785062456298}
   - component: {fileID: 8282437853715073794}
   - component: {fileID: 592900088165389668}
-  - component: {fileID: 2854251984379042792}
-  - component: {fileID: 5771244348805732629}
+  - component: {fileID: 2607579140432219019}
+  - component: {fileID: -6178324734129506584}
   m_Layer: 0
   m_Name: 'Portal A '
   m_TagString: PortalA
@@ -68,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: af00402a2b0b90e46b83ceb3b7ea8dd5, type: 2}
+  - {fileID: 2100000, guid: 451a08db6c499e54790befae62ff2ec9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
---- !u!20 &2854251984379042792
+--- !u!20 &2607579140432219019
 Camera:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,7 +143,7 @@ Camera:
   m_ShutterSpeed: 0.005
   m_Aperture: 16
   m_FocusDistance: 10
-  m_FocalLength: 20.78461
+  m_FocalLength: 50
   m_BladeCount: 5
   m_Curvature: {x: 2, y: 11}
   m_BarrelClipping: 0.25
@@ -158,7 +158,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60.000004
+  field of view: 60
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -166,7 +166,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: 6a43f4b84ad1d5844b35b3ca1ce848cc, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: 6b8873fed496385488726a7e77eb641b, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -176,7 +176,7 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &5771244348805732629
+--- !u!114 &-6178324734129506584
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
