@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour, IPortalTravel
 {
+    [SerializeField]
+    int _playerLives;
 
     [SerializeField]
     private float portalReachDistance = 10f;
@@ -22,6 +24,8 @@ public class PlayerController : MonoBehaviour, IPortalTravel
 
     [SerializeField]
     private Bullet _storedPortalBullet;
+    [SerializeField]
+    private string _enemyBulletTag;
 
     public bool IsTraveling { get; set; }
 
@@ -93,5 +97,21 @@ public class PlayerController : MonoBehaviour, IPortalTravel
         Cursor.visible = true;
         SceneManager.LoadScene(0);
 
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag(_enemyBulletTag))
+        {
+            Destroy(other.gameObject);
+            LoseLives();
+        }
+    }
+
+    [ContextMenu("Subtract Life")]
+    public void LoseLives() 
+    {
+        _playerLives--;
+        UIManager.Instance.UpdateLives(_playerLives);
     }
 }
