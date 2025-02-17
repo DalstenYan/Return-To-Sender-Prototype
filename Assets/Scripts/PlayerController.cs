@@ -91,13 +91,6 @@ public class PlayerController : MonoBehaviour, IPortalTravel
         return _storedPortalBullet;
     }
 
-    void OnExit()
-    {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        SceneManager.LoadScene(0);
-
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -112,6 +105,6 @@ public class PlayerController : MonoBehaviour, IPortalTravel
     public void LoseLives() 
     {
         _playerLives--;
-        UIManager.Instance.UpdateLives(_playerLives);
+        UIManager.Instance.UpdateLostLifeUI(_playerLives);
     }
 }
