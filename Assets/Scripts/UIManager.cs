@@ -7,7 +7,7 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     Sprite[] _livesSprites;
     [SerializeField]
-    GameObject _livesContainer, _lowHealthIndicator;
+    GameObject _livesContainer, _lowHealthIndicator, _pauseScreen;
     [SerializeField]
     [Tooltip("# of lives left to be considered \"Low Health\"; Also activates the Low Health Indicator at this # ")]
     int _livesForLowHealth;
@@ -24,7 +24,7 @@ public class UIManager : MonoBehaviour
 
 
 
-    public void UpdateLives(int newLives) 
+    public void UpdateLostLifeUI(int newLives) 
     {
         _livesIndex = newLives / _livesStages;
         int spriteIndex = newLives % _livesStages;
@@ -35,5 +35,12 @@ public class UIManager : MonoBehaviour
             _lowHealthIndicator.SetActive(true);
         }
     }
+
+    public void TogglePauseScreen() 
+    {
+        _pauseScreen.SetActive(!_pauseScreen.activeSelf);
+    }
+
+
 
 }
