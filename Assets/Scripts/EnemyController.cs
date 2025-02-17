@@ -20,8 +20,8 @@ public class EnemyController : MonoBehaviour
 
     [Header ("Rotation Variables")][Space (5)]
 
-    [Tooltip ("If enemy will track player")]
-    [SerializeField] private bool looksAtPlayer;
+    [Tooltip ("If enemy should track player")]
+    [SerializeField] private bool shouldTrackPlayer;
 
     [Tooltip("Rotation speed of enemy (degrees per second) ((i think))")] [Min (0)] 
     [SerializeField] private float lookSpeed = 30;
@@ -39,8 +39,8 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-        //check look bool & within range
-        if (looksAtPlayer && Vector3.Distance(player.transform.position, transform.position) <= lookRange)
+        //check shouldTrack bool & if within range
+        if (shouldTrackPlayer && Vector3.Distance(player.transform.position, transform.position) <= lookRange)
         {
             //direction vector
             Vector3 relativePos = player.transform.position - transform.position;
@@ -65,7 +65,7 @@ public class EnemyController : MonoBehaviour
         //get bullet from bullet pool
         GameObject bullet = bulletManager.GetBullet();
 
-        //set bullet transform
+        //set bullet position/rotation
         bullet.transform.position = shootPosition.position;
         bullet.transform.rotation = transform.rotation;
 
@@ -73,7 +73,7 @@ public class EnemyController : MonoBehaviour
         bullet.GetComponent<Rigidbody>().linearVelocity = transform.forward * bulletSpeed;
     }
 
-    IEnumerator ShootLoop() //basic loop to shoot on a timer with shootDelay
+    IEnumerator ShootLoop() //shoot on a timer with shootDelay
     {
         yield return new WaitForSeconds(shootDelay);
         Shoot();
@@ -99,7 +99,7 @@ public class EnemyController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawRay(shootPosition.position, transform.forward * 1f);
+        Gizmos.DrawRay(shootPosition.position, transform.forward * 2f);
         //draws ray in shoot direction for visible sightline (editor only)
     }
 }
