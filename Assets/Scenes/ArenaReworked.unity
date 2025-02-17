@@ -11352,6 +11352,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6692581259635953456, guid: 52365e612a8e2664ab6ae6b48b793d1d, type: 3}
+      propertyPath: _gainedLivesSprites.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6692581259635953456, guid: 52365e612a8e2664ab6ae6b48b793d1d, type: 3}
+      propertyPath: '_gainedLivesSprites.Array.data[0]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 1811a9a64a115844b97e001540f6e5ff, type: 3}
+    - target: {fileID: 6692581259635953456, guid: 52365e612a8e2664ab6ae6b48b793d1d, type: 3}
+      propertyPath: '_gainedLivesSprites.Array.data[1]'
+      value: 
+      objectReference: {fileID: 21300000, guid: cfc206c865f34e94194b3c09ec119020, type: 3}
     - target: {fileID: 7990897011950446602, guid: 52365e612a8e2664ab6ae6b48b793d1d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

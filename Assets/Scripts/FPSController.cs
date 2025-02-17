@@ -117,7 +117,7 @@ public class FPSController : MonoBehaviour
     void OnExit()
     {
         canMove = !canMove;
-        GameManager.gm.PauseGame();
+        GameManager.gm.PauseGame(true);
 
     }
 }

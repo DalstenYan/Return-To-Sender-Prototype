@@ -10,21 +10,24 @@ public class GameManager : MonoBehaviour
         gm = this;
     }
 
-    public void PauseGame() 
+    public void PauseGame(bool showPauseScreen = false) 
     {
         Time.timeScale = Time.timeScale == 1 ? 0 : 1;
         Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = !Cursor.visible;
-        UIManager.Instance.TogglePauseScreen();
+        if(showPauseScreen)
+            UIManager.Instance.TogglePauseScreen();
     }
 
     public void RestartGame() 
     {
+        PauseGame();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void MainMenu() 
     {
+        PauseGame();
         SceneManager.LoadScene(0);
     }
 
