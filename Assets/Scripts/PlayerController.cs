@@ -107,4 +107,12 @@ public class PlayerController : MonoBehaviour, IPortalTravel
         _playerLives--;
         UIManager.Instance.UpdateLostLifeUI(_playerLives);
     }
+
+    [ContextMenu("Add Life")]
+    public void GainLives()
+    {
+        _playerLives++;
+        UIManager.Instance.UpdateLostLifeUI(_playerLives);
+    }
+
 }
