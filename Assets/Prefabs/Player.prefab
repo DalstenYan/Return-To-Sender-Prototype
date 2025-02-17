@@ -140,15 +140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3e73ce55c435e7419e196e407998161, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraMain: {fileID: 0}
-  movement: {fileID: 0}
-  jump: {fileID: 0}
-  look: {fileID: 0}
-  playerSpeed: 2
-  jumpHeight: 1
-  gravityValue: -9.81
-  rotationSpeed: 4
-  distance: 20
+  _playerLives: 6
+  portalReachDistance: 10
   portalPrefabs:
   - {fileID: 666686246557045676, guid: da406edf5eefb5f448858f488d2f8780, type: 3}
   - {fileID: 6098467451765454300, guid: 650f4928d05a9c945ba8be35619f5abd, type: 3}
@@ -157,6 +150,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   _storedPortalBullet: {fileID: 0}
+  _enemyBulletTag: Bullet
 --- !u!143 &2110589087976850494
 CharacterController:
   m_ObjectHideFlags: 0
