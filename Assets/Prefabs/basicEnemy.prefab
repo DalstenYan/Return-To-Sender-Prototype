@@ -3197,7 +3197,7 @@ MonoBehaviour:
   bulletSpeed: 5
   shootPosition: {fileID: 1177529576786120102}
   shootDelay: 0.5
-  looksAtPlayer: 1
+  shouldTrackPlayer: 1
   lookSpeed: 30
   lookRange: 30
 --- !u!135 &-1834816048223549836
