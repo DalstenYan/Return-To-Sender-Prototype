@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1325139708352237046}
   m_Layer: 0
   m_Name: Drone Model
-  m_TagString: Player
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3196,6 +3196,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletSpeed: 5
   shootPosition: {fileID: 1177529576786120102}
+  shootDelay: 0.5
+  looksAtPlayer: 1
+  lookSpeed: 30
+  lookRange: 30
 --- !u!135 &-1834816048223549836
 SphereCollider:
   m_ObjectHideFlags: 0
