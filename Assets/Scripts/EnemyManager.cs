@@ -15,7 +15,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField]
     private bool organizeAllSpawners;
     [SerializeField]
-    int totalEnemySpawn, existingEnemies;
+    int totalEnemySpawn, existingEnemies, defeatedEnemies;
 
     //Enqueue existing enemy
 
@@ -43,8 +43,8 @@ public class EnemyManager : MonoBehaviour
         enemy.transform.SetParent(transform);
         enemyObjectPools[enemyType].Enqueue(enemy);
         //Debug.Log("Added: " + enemy + ", pool is now " + enemyObjectPools[enemyType] + "with count: " + enemyObjectPools[enemyType].Count);
-        existingEnemies--;
-        if (existingEnemies <= 0)
+        defeatedEnemies++;
+        if (defeatedEnemies >= totalEnemySpawn)
             GameManager.gm.gameWonEvent.Invoke();
     }
 
