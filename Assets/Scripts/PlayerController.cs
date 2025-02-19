@@ -31,54 +31,10 @@ public class PlayerController : MonoBehaviour, IPortalTravel
 
     public bool IsTraveling { get; set; }
 
-    private Vector3 initialRotation;
-    private bool rotationInProgress = false;
-    private float xDiff = 0f;
-    private float zDiff = 0f;
-    private int rotationCount = 0;
-
     private void Start()
     {
         _maxLives = _playerLives;
         existingPortals = new GameObject[portalPrefabs.Length];
-    }
-
-    void Update()
-    {
-        if(rotationInProgress ==  true)
-        {
-            transform.Rotate(xDiff, 0, zDiff);
-            rotationCount++;
-            if (rotationCount >= 200)
-            {
-                rotationInProgress = false;
-                rotationCount = 0;
-                xDiff = 0f;
-                zDiff = 0f;
-                transform.Rotate(transform.eulerAngles.x * -1, 0, transform.eulerAngles.z * -1);
-            }
-            Debug.Log("The player character was rotated!");
-        }
-        else if(transform.eulerAngles.x != 0 || transform.eulerAngles.z != 0)
-        {
-            rotationInProgress = true;
-            if (transform.eulerAngles.x < 180)
-            {
-                xDiff = transform.eulerAngles.x / -200;
-            }
-            else
-            {
-                xDiff = (360 - transform.eulerAngles.x) / 200;
-            }
-            if (transform.eulerAngles.z < 180)
-            {
-                zDiff = transform.eulerAngles.z / -200;
-            }
-            else
-            {
-                zDiff = (360 - transform.eulerAngles.z) / 200;
-            }
-        }
     }
 
     public void OnPortal1() 
@@ -100,26 +56,14 @@ public class PlayerController : MonoBehaviour, IPortalTravel
         if (Time.timeScale == 0)
             return;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        int wallMask = LayerMask.GetMask("Walls");
-        int groundMask = LayerMask.GetMask("Ground");
-        if (Physics.Raycast(ray, out RaycastHit hit, portalReachDistance, wallMask))
+        if (Physics.Raycast(ray, out RaycastHit hit, portalReachDistance, groundLayerMask))
         {
             PortalControl(portalIndex);
-            existingPortals[portalIndex] = Instantiate(portalPrefabs[portalIndex], hit.point, hit.transform.rotation);
-            existingPortals[portalIndex].transform.Rotate(0, 90, 0);
-            existingPortals[portalIndex].transform.Translate(ray.direction * 0.15f);
+            hit.point += Vector3.up;
+            existingPortals[portalIndex] = Instantiate(portalPrefabs[portalIndex], hit.point, transform.rotation);
 
             Debug.Log("Placed " + portalPrefabs[portalIndex].name + " at: " + hit.point);
 
-        }
-        else if(Physics.Raycast(ray, out RaycastHit hit2, portalReachDistance, groundMask))
-        {
-            PortalControl(portalIndex);
-            existingPortals[portalIndex] = Instantiate(portalPrefabs[portalIndex], hit2.point, hit2.transform.rotation);
-            existingPortals[portalIndex].transform.Rotate(90, 0, 0);
-            existingPortals[portalIndex].transform.Translate(Vector3.forward * -0.25f);
-
-            Debug.Log("Placed " + portalPrefabs[portalIndex].name + " at: " + hit2.point);
         }
     }
 
