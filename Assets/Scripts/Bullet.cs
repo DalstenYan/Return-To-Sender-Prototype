@@ -52,10 +52,12 @@ public class Bullet : MonoBehaviour, IPortalTravel
         {
             hitObject.GetComponent<EnemyController>().EnemyDeath();
         }
-        else if(hitObject.CompareTag("Walls") || hitObject.CompareTag("Ground"))
+        else if(!hitObject.CompareTag("Walls"))
         {
-            bulletManager.SendBullet(gameObject);
+            return;
         }
+
+        bulletManager.SendBullet(gameObject);
     }
 
 

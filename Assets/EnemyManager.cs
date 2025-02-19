@@ -12,8 +12,6 @@ public class EnemyManager : MonoBehaviour
     Dictionary<string, Queue<EnemyController>> enemyObjectPools;
 
     public static EnemyManager instance;
-    [SerializeField]
-    private bool organizeAllSpawners;
 
     //Enqueue existing enemy
 
@@ -25,14 +23,6 @@ public class EnemyManager : MonoBehaviour
         {
             enemyObjectPools.Add(obj.name, new Queue<EnemyController>());
         }
-
-        if (!organizeAllSpawners)
-            return;
-
-        foreach (var obj in FindObjectsByType<SpawnerController>(FindObjectsInactive.Include, FindObjectsSortMode.InstanceID)) 
-        {
-            obj.transform.parent = transform;
-        }
     }
 
     public void EnqueueEnemy(string enemyType, EnemyController enemy) 
@@ -40,7 +30,7 @@ public class EnemyManager : MonoBehaviour
         enemy.gameObject.SetActive(false);
         enemy.transform.SetParent(transform);
         enemyObjectPools[enemyType].Enqueue(enemy);
-        Debug.Log("Added: " + enemy + ", pool is now " + enemyObjectPools[enemyType] + "with count: " + enemyObjectPools[enemyType].Count);
+        Debug.Log("Added: " + enemy + ", pool is now " + enemyObjectPools[enemyType]);
     }
 
     /// <summary>
@@ -48,21 +38,20 @@ public class EnemyManager : MonoBehaviour
     /// </summary>
     /// <param name="enemyType"></param>
     /// <returns></returns>
-    EnemyController CreateNewEnemy(string enemyType) 
+    EnemyController EnqueueNewEnemy(string enemyType) 
     {
         var newEnemy = Instantiate(enemyPrefabTypes.Find(x => x.name == enemyType), Vector3.zero, Quaternion.identity).GetComponent<EnemyController>();
+        enemyObjectPools[enemyType].Enqueue(newEnemy);
         return newEnemy;
     }
 
     public EnemyController DequeueEnemy(string enemyType)
     {
-        Debug.Log("Trying Dequeue... Current count is: " + enemyObjectPools[enemyType].Count);
-        if (enemyObjectPools[enemyType].TryDequeue(out EnemyController enemyOut) && enemyOut != null) 
+        if (enemyObjectPools[enemyType].TryDequeue(out EnemyController enemyOut)) 
         {
-            Debug.Log("Re-entered: " + enemyOut);
             return enemyOut;
         }
-        return CreateNewEnemy(enemyType);
+        return EnqueueNewEnemy(enemyType);
     }
 
 
@@ -70,7 +59,7 @@ public class EnemyManager : MonoBehaviour
     public void ReactivateEnemy() 
     {
         var enemy = DequeueEnemy("basicEnemy");
-        enemy.Activation(transform);
+        enemy.Activation(Vector3.zero);
 
     }
 }

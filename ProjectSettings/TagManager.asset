@@ -11,7 +11,6 @@ TagManager:
   - Ground
   - Bullet
   - Enemy
-  - HealthItem
   layers:
   - Default
   - TransparentFX
