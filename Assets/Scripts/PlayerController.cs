@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour, IPortalTravel
     [SerializeField]
     int _playerLives;
 
+    int _maxLives;
+
     [SerializeField]
     private float portalReachDistance = 10f;
 
@@ -31,6 +33,7 @@ public class PlayerController : MonoBehaviour, IPortalTravel
 
     private void Start()
     {
+        _maxLives = _playerLives;
         existingPortals = new GameObject[portalPrefabs.Length];
     }
 
@@ -96,8 +99,16 @@ public class PlayerController : MonoBehaviour, IPortalTravel
     {
         if (other.gameObject.CompareTag(_enemyBulletTag))
         {
+            if (_playerLives <= 0)
+                return;
             Destroy(other.gameObject);
             LoseLives();
+        }
+
+        if (other.gameObject.CompareTag("HealthItem")) 
+        {
+            Destroy(other.transform.parent.gameObject);
+            GainLives();
         }
     }
 
@@ -106,11 +117,15 @@ public class PlayerController : MonoBehaviour, IPortalTravel
     {
         _playerLives--;
         UIManager.Instance.UpdateLostLifeUI(_playerLives);
+        if (_playerLives <= 0)
+            GameManager.gm.GameOver();
     }
 
     [ContextMenu("Add Life")]
     public void GainLives()
     {
+        if (_playerLives >= _maxLives)
+            return;
         _playerLives++;
         UIManager.Instance.UpdateLostLifeUI(_playerLives);
     }

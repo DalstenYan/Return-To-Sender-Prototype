@@ -29,6 +29,8 @@ public class EnemyController : MonoBehaviour
     [Tooltip ("Distance that enemy will begin to track the player")] [Min(0)]
     [SerializeField] private float lookRange = 30;
 
+    [SerializeField] private GameObject healthItem;
+
     private GameObject player;
 
     void Start()
@@ -87,11 +89,22 @@ public class EnemyController : MonoBehaviour
         gameObject.SetActive(true);
     }
 
+    void RollHealthDrop() 
+    {
+        int chance = Random.Range(0, 10);
+        if (chance != 0)
+            return;
+        Vector3 itemPos = transform.position;
+        itemPos.y = 0;
+        Instantiate(healthItem, itemPos, Quaternion.identity);
+    }
+
     
     [ContextMenu("Simulate Death")]
     public void EnemyDeath() 
     {
         StopAllCoroutines();
+        RollHealthDrop();
         Debug.Log(EnemyManager.instance);
         EnemyManager.instance.EnqueueEnemy("basicEnemy", this);
 

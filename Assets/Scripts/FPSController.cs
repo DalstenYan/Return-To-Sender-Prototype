@@ -117,7 +117,15 @@ public class FPSController : MonoBehaviour
     void OnExit()
     {
         canMove = !canMove;
-        GameManager.gm.PauseGame(true);
+        GameManager.gm.PauseGame();
+
+    }
+
+    public void GameOverState() 
+    {
+        GetComponent<Collider>().enabled = GetComponent<FPSController>().enabled = GetComponent<PlayerInput>().enabled = false;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
 
     }
 }
