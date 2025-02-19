@@ -41,6 +41,7 @@ public class SpawnerController : MonoBehaviour
     {
         yield return new WaitForSeconds(_spawnInterval);
 
+
         if (GetRemainingValidSpawnSpots() > 0) 
         {
             SpawnEnemy();
@@ -51,6 +52,12 @@ public class SpawnerController : MonoBehaviour
 
     void SpawnEnemy() 
     {
+        if (EnemyManager.instance.HasMaxEnemiesSpawned()) 
+        {
+            StopAllCoroutines();
+            return;
+        }
+
         int spawnIndex = Random.Range(0, _spawnLocations.Count);
         Transform spawnPosition = _spawnLocations[spawnIndex];
 

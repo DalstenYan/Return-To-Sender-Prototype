@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -6,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager gm;
 
-    public UnityEvent gameOverEvent;
+    public UnityEvent gameOverEvent, gameWonEvent;
 
     private void Awake()
     {
@@ -39,9 +40,16 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    public IEnumerator GameWon() 
+    {
+        yield return new WaitForSeconds(5);
+        MainMenu();
+    }
+
     public void QuitGame() => Application.Quit();
 
     public void GameOver() => gameOverEvent.Invoke();
+
 
     public void DestroyAllBullets()
     {

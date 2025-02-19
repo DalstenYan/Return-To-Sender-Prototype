@@ -14,6 +14,8 @@ public class EnemyManager : MonoBehaviour
     public static EnemyManager instance;
     [SerializeField]
     private bool organizeAllSpawners;
+    [SerializeField]
+    int totalEnemySpawn, existingEnemies, defeatedEnemies;
 
     //Enqueue existing enemy
 
@@ -40,7 +42,10 @@ public class EnemyManager : MonoBehaviour
         enemy.gameObject.SetActive(false);
         enemy.transform.SetParent(transform);
         enemyObjectPools[enemyType].Enqueue(enemy);
-        Debug.Log("Added: " + enemy + ", pool is now " + enemyObjectPools[enemyType] + "with count: " + enemyObjectPools[enemyType].Count);
+        //Debug.Log("Added: " + enemy + ", pool is now " + enemyObjectPools[enemyType] + "with count: " + enemyObjectPools[enemyType].Count);
+        defeatedEnemies++;
+        if (defeatedEnemies >= totalEnemySpawn)
+            GameManager.gm.gameWonEvent.Invoke();
     }
 
     /// <summary>
@@ -56,7 +61,8 @@ public class EnemyManager : MonoBehaviour
 
     public EnemyController DequeueEnemy(string enemyType)
     {
-        Debug.Log("Trying Dequeue... Current count is: " + enemyObjectPools[enemyType].Count);
+        existingEnemies++;
+        //Debug.Log("Trying Dequeue... Current count is: " + enemyObjectPools[enemyType].Count);
         if (enemyObjectPools[enemyType].TryDequeue(out EnemyController enemyOut) && enemyOut != null) 
         {
             Debug.Log("Re-entered: " + enemyOut);
@@ -64,6 +70,8 @@ public class EnemyManager : MonoBehaviour
         }
         return CreateNewEnemy(enemyType);
     }
+
+    public bool HasMaxEnemiesSpawned() { return existingEnemies >= totalEnemySpawn;  }
 
 
     [ContextMenu("Activate Enemy Again")]
