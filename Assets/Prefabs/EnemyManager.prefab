@@ -47,3 +47,5 @@ MonoBehaviour:
   enemyPrefabTypes:
   - {fileID: 8113926779688662576, guid: add01a24e75c3c54e830dcd1d6ef0c23, type: 3}
   organizeAllSpawners: 0
+  totalEnemySpawn: 30
+  existingEnemies: 0

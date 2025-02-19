@@ -435,10 +435,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerCamera: {fileID: 5362537569559008868}
-  _walkSpeed: 6
-  _jumpPower: 4
-  _gravity: 10
-  _lookSpeed: 1
+  _walkSpeed: 8
+  _jumpPower: 9
+  _gravity: 12
+  _lookSpeed: 0.6
   _lookXLimit: 85
 --- !u!1 &5596428385254609081
 GameObject:
