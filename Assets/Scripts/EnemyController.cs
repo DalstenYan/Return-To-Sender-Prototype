@@ -14,7 +14,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Transform shootPosition;
 
     [Tooltip("Delay between enemy firing bullets")][Min (0)]
-    [SerializeField] private float shootDelay = 0.5f;
+    [SerializeField] private float shootDelay = 1.0f;
 
     [Space (5)]
 
@@ -92,7 +92,7 @@ public class EnemyController : MonoBehaviour
     void RollHealthDrop() 
     {
         int chance = Random.Range(0, 10);
-        if (chance != 0)
+        if (chance > 1 )
             return;
         Vector3 itemPos = transform.position;
         itemPos.y = 0;
