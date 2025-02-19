@@ -17,14 +17,7 @@ public class BulletManager : MonoBehaviour
     public GameObject GetBullet()
     {
         GameObject newBullet;
-        if (bulletPool.Count == 0)
-        {
-            newBullet = Instantiate(bullet);
-        }
-        else
-        {
-            newBullet = (GameObject)bulletPool.Pop();
-        }
+        newBullet = (bulletPool.Count == 0) ? Instantiate(bullet) : (GameObject)bulletPool.Pop();
         newBullet.transform.parent = transform.GetChild(0);
         newBullet.SetActive(true);
         return newBullet;
