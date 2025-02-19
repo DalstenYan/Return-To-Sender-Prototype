@@ -1,38 +1,50 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager gm;
 
+    public UnityEvent gameOverEvent;
+
     private void Awake()
     {
         gm = this;
     }
 
-    public void PauseGame(bool showPauseScreen = false) 
+    public void PauseGame() 
+    {
+        ToggleTimeAndCursor();
+        UIManager.Instance.TogglePauseScreen();
+    }
+
+    public void ToggleTimeAndCursor() 
     {
         Time.timeScale = Time.timeScale == 1 ? 0 : 1;
         Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = !Cursor.visible;
-        if(showPauseScreen)
-            UIManager.Instance.TogglePauseScreen();
     }
 
     public void RestartGame() 
     {
-        PauseGame();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void MainMenu() 
     {
-        PauseGame();
+        if(Time.timeScale == 0)
+            ToggleTimeAndCursor();
+
         SceneManager.LoadScene(0);
     }
 
-    public void QuitGame() 
+    public void QuitGame() => Application.Quit();
+
+    public void GameOver() => gameOverEvent.Invoke();
+
+    public void DestroyAllBullets()
     {
-        Application.Quit();
+        foreach (var obj in GameObject.FindGameObjectsWithTag("Bullet")) { Destroy(obj); }
     }
 }

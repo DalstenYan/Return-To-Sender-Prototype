@@ -3201,6 +3201,7 @@ MonoBehaviour:
   shouldTrackPlayer: 1
   lookSpeed: 30
   lookRange: 30
+  healthItem: {fileID: 5246565376664583397, guid: c634985d4e23050469586f398d70505c, type: 3}
 --- !u!135 &-1834816048223549836
 SphereCollider:
   m_ObjectHideFlags: 0
