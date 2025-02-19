@@ -48,16 +48,22 @@ public class Bullet : MonoBehaviour, IPortalTravel
         GameObject hitObject = other.gameObject;
 
         //When it hits an enemy, and it can hit allies
-        if (hitObject.CompareTag("Enemy") && hitAllies)
+        if (hitObject.CompareTag("Enemy"))
         {
-            hitObject.GetComponent<EnemyController>().EnemyDeath();
+            if(hitAllies)
+            {
+                hitObject.GetComponent<EnemyController>().EnemyDeath();
+                bulletManager.SendBullet(gameObject);
+            }
+            else
+            {
+                return;
+            }
         }
-        else if(!hitObject.CompareTag("Walls"))
+        if (hitObject.CompareTag("Walls") || hitObject.CompareTag("Ground"))
         {
-            return;
+            bulletManager.SendBullet(gameObject);
         }
-
-        bulletManager.SendBullet(gameObject);
     }
 
 
@@ -70,9 +76,11 @@ public class Bullet : MonoBehaviour, IPortalTravel
 
     private void OnDrawGizmos()
     {
+        //ray for bullet direction (scene view only)
         Gizmos.DrawRay(transform.position, transform.forward * 1f);
     }
 
+    //destroys bullet after serialized time duration
     public IEnumerator DespawnTimer()
     {
         yield return new WaitForSeconds(timeBeforeDespawn);

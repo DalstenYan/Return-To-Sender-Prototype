@@ -53,6 +53,8 @@ public class PlayerController : MonoBehaviour, IPortalTravel
     /// <param name="portalIndex"></param>
     private void PlacePortalDown(int portalIndex) 
     {
+        if (Time.timeScale == 0)
+            return;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, portalReachDistance, groundLayerMask))
         {
