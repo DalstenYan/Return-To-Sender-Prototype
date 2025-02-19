@@ -34,6 +34,7 @@ public class FPSController : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
+        Debug.Log(Cursor.lockState);
         characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -111,5 +112,20 @@ public class FPSController : MonoBehaviour
     {
         mouseX = mouseInput.Get<Vector2>().x;
         mouseY = mouseInput.Get<Vector2>().y;
+    }
+
+    void OnExit()
+    {
+        canMove = !canMove;
+        GameManager.gm.PauseGame();
+
+    }
+
+    public void GameOverState() 
+    {
+        GetComponent<Collider>().enabled = GetComponent<FPSController>().enabled = GetComponent<PlayerInput>().enabled = false;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
+
     }
 }

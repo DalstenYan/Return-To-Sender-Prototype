@@ -6,6 +6,10 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour, IPortalTravel
 {
+    [SerializeField]
+    int _playerLives;
+
+    int _maxLives;
 
     [SerializeField]
     private float portalReachDistance = 10f;
@@ -22,6 +26,8 @@ public class PlayerController : MonoBehaviour, IPortalTravel
 
     [SerializeField]
     private Bullet _storedPortalBullet;
+    [SerializeField]
+    private string _enemyBulletTag;
 
     public bool IsTraveling { get; set; }
 
@@ -33,6 +39,7 @@ public class PlayerController : MonoBehaviour, IPortalTravel
 
     private void Start()
     {
+        _maxLives = _playerLives;
         existingPortals = new GameObject[portalPrefabs.Length];
     }
 
@@ -90,6 +97,8 @@ public class PlayerController : MonoBehaviour, IPortalTravel
     /// <param name="portalIndex"></param>
     private void PlacePortalDown(int portalIndex) 
     {
+        if (Time.timeScale == 0)
+            return;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         int wallMask = LayerMask.GetMask("Walls");
         int groundMask = LayerMask.GetMask("Ground");
@@ -143,11 +152,40 @@ public class PlayerController : MonoBehaviour, IPortalTravel
         return _storedPortalBullet;
     }
 
-    void OnExit()
-    {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        SceneManager.LoadScene(0);
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag(_enemyBulletTag))
+        {
+            if (_playerLives <= 0)
+                return;
+            Destroy(other.gameObject);
+            LoseLives();
+        }
+
+        if (other.gameObject.CompareTag("HealthItem")) 
+        {
+            Destroy(other.transform.parent.gameObject);
+            GainLives();
+        }
     }
+
+    [ContextMenu("Subtract Life")]
+    public void LoseLives() 
+    {
+        _playerLives--;
+        UIManager.Instance.UpdateLostLifeUI(_playerLives);
+        if (_playerLives <= 0)
+            GameManager.gm.GameOver();
+    }
+
+    [ContextMenu("Add Life")]
+    public void GainLives()
+    {
+        if (_playerLives >= _maxLives)
+            return;
+        _playerLives++;
+        UIManager.Instance.UpdateLostLifeUI(_playerLives);
+    }
+
 }
