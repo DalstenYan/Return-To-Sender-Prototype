@@ -40,7 +40,12 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public IEnumerator GameWon() 
+    public void GameWon() 
+    {
+        StartCoroutine(GameWonCoroutine());
+    }
+
+    public IEnumerator GameWonCoroutine() 
     {
         yield return new WaitForSeconds(5);
         MainMenu();
